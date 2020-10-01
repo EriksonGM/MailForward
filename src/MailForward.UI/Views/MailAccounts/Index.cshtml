@@ -10,3 +10,36 @@
     <a class="btn btn-primary float-right" asp-action="Edit">New Mail Account</a>
 </div>
 
+
+
+<table class="table ">
+    <thead>
+    <tr>
+        <th style="width: 10px;"></th>
+        <th>Description</th>
+        <th>Server</th>
+        <th>Port</th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var m in Model)
+        {
+            <tr >
+                <td>
+                    <a class="btn btn-primary text-white mr-2"><i class="fa fa-info-circle"></i></a>
+                </td>
+                <td class="align-middle">
+                    @m.Description
+                </td>
+                <td class="align-middle">
+                    @m.Server
+
+                </td>
+                <td class="align-middle">
+                    @m.Port
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>

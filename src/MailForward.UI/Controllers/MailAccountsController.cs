@@ -21,7 +21,7 @@ namespace MailForward.UI.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(_mailAccount.List());
         }
 
         public IActionResult Info(Guid id)

@@ -13,17 +13,22 @@
 <form asp-action="Edit" asp-controller="MailAccounts" method="post">
     <div class="form-group">
         <label asp-for="Description"></label>
-        <input class="form-control" asp-for="Description" required maxlength="50" readonly/>
-    </div>
-    <div class="form-group">
-        <label asp-for="Server"></label>
-        <input class="form-control" asp-for="Server" required maxlength="50" readonly/>
-        <span asp-validation-for="Server"></span>
+        <input class="form-control" asp-for="Description" required maxlength="50" readonly />
     </div>
     <div class="form-group">
         <label asp-for="Mail"></label>
-        <input class="form-control" asp-for="Mail" maxlength="50" type="email" readonly/>
+        <input class="form-control" asp-for="Mail" maxlength="50" type="email" readonly />
         <span asp-validation-for="Mail"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Server"></label>
+        <input class="form-control" asp-for="Server" required maxlength="50" readonly />
+        <span asp-validation-for="Server"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Port"></label>
+        <input class="form-control" asp-for="Port" maxlength="50" type="number" min="0" max="65500" readonly/>
+        <span asp-validation-for="Port"></span>
     </div>
     <div class="form-group">
         <label asp-for="User"></label>
@@ -32,10 +37,10 @@
     </div>
     <div class="form-group">
         <label asp-for="Password"></label>
-        <input class="form-control" asp-for="Password" required maxlength="50" type="password" readonly/>
+        <input class="form-control" asp-for="Password" required maxlength="50" type="password" readonly />
     </div>
     <div class="form-group">
-        <input asp-for="UseSSL" type="checkbox" readonly/>
+        <input asp-for="UseSSL" type="checkbox" readonly />
         <label asp-for="UseSSL"></label>
     </div>
 

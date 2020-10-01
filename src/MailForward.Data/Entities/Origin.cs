@@ -10,7 +10,13 @@ namespace MailForward.Data.Entities
         [Key]
         public Guid IdOrigin { get; set; }
 
+        [Required]
         public string Description { get; set; }
+
+        [Required]
+        public string Subject { get; set; }
+        
+        public string Body { get; set; }
 
         public Guid IdMailAccount { get; set; }
 

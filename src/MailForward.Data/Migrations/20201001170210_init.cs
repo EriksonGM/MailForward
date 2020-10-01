@@ -16,6 +16,7 @@ namespace MailForward.Data.Migrations
                     Server = table.Column<string>(maxLength: 50, nullable: true),
                     User = table.Column<string>(maxLength: 50, nullable: true),
                     Password = table.Column<string>(maxLength: 50, nullable: true),
+                    Port = table.Column<int>(nullable: false),
                     Mail = table.Column<string>(maxLength: 50, nullable: true),
                     UseSSL = table.Column<bool>(nullable: false)
                 },
@@ -29,7 +30,9 @@ namespace MailForward.Data.Migrations
                 columns: table => new
                 {
                     IdOrigin = table.Column<Guid>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: false),
+                    Subject = table.Column<string>(nullable: false),
+                    Body = table.Column<string>(nullable: true),
                     IdMailAccount = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>

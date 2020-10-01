@@ -20,5 +20,7 @@ namespace MailForward.Data
         public DbSet<Destiny> Destinies { get; set; }
 
         public DbSet<MailAccount> MailAccounts { get; set; }
+
+        public DbSet<Origin> Origins { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace MailForward.Services
         public void Update(MailAccountDTO dto);
         public void Delete(Guid idMailAccount);
         public MailAccountDTO GetById(Guid idMailAccount);
-        public List<MailAccountDTO> GetAll();
+        public List<MailAccountDTO> List();
     }
     public class MailAccountService : IMailAccountService
     {
@@ -103,7 +103,7 @@ namespace MailForward.Services
             return dto;
         }
 
-        public List<MailAccountDTO> GetAll()
+        public List<MailAccountDTO> List()
         {
             return _db.MailAccounts.Select(x => new MailAccountDTO
             {

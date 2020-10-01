@@ -73,6 +73,9 @@ namespace MailForward.Data.Migrations
                         .HasColumnType("TEXT")
                         .HasMaxLength(50);
 
+                    b.Property<int>("Port")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Server")
                         .HasColumnType("TEXT")
                         .HasMaxLength(50);
@@ -95,10 +98,18 @@ namespace MailForward.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Body")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("IdMailAccount")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("IdOrigin");
