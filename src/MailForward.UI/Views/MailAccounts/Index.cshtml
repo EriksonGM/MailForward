@@ -1,0 +1,12 @@
+﻿@model List<MailAccountDTO>
+@{
+    ViewData["Title"] = "Mail Accounts";
+    ViewData["Icon"] = "fa fa-mail-bulk";
+}
+
+
+<div>
+    <span class="h2"><i class="@ViewData["Icon"] mr-2 mb-4"></i>@ViewData["Title"]</span>
+    <a class="btn btn-primary float-right" asp-action="Edit">New Mail Account</a>
+</div>
+

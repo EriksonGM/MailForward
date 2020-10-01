@@ -1,0 +1,64 @@
+﻿@model MailAccountDTO
+@{
+
+
+    if (Model.IdMailAccount.HasValue)
+    {
+        ViewData["Title"] = "Edit Mail Account";
+    }
+    else
+    {
+        ViewData["Title"] = "Add Mail Account";
+    }
+
+    ViewData["Icon"] = "fa fa-mail-bulk";
+}
+
+<div>
+    <span class="h2"><i class="@ViewData["Icon"] mr-2 mb-4"></i>@ViewData["Title"]</span>
+</div>
+
+<form asp-action="Edit" asp-controller="MailAccounts" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="IdMailAccount" />
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <input class="form-control" asp-for="Description" required maxlength="50" />
+        <span asp-validation-for="Description"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Server"></label>
+        <input class="form-control" asp-for="Server" required maxlength="50" />
+        <span asp-validation-for="Server"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Mail"></label>
+        <input class="form-control" asp-for="Mail" maxlength="50" type="email" />
+        <span asp-validation-for="Mail"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Port"></label>
+        <input class="form-control" asp-for="Port" maxlength="50" type="number" min="0" max="65500"/>
+        <span asp-validation-for="Port"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="User"></label>
+        <input class="form-control" asp-for="User" required maxlength="50" />
+        <span asp-validation-for="User"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password"></label>
+        <input class="form-control" asp-for="Password" required maxlength="50" type="password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+    <div class="form-group">
+        <input asp-for="UseSSL" type="checkbox" />
+        <label asp-for="UseSSL"></label>
+    </div>
+    <div asp-validation-summary="All"></div>
+    <div class="text-right">
+        <a class="btn btn-danger" asp-action="Index" asp-controller="MailAccounts"><i class="fa fa-save mr-2"></i>Cancel</a>
+        <button class="btn btn-success" type="submit"><i class="fa fa-save mr-2"></i>Save</button>
+    </div>
+</form>
+

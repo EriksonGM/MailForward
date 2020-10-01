@@ -1,0 +1,10 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    ViewData["Icon"] = "fa fa-paper-plane";
+}
+
+<div>
+    <span class="h2"><i class="@ViewData["Icon"] mr-2 mb-4"></i>@ViewData["Title"]</span>
+    <a class="btn btn-primary float-right" asp-action="Edit">New Origin</a>
+</div>
