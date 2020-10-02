@@ -26,20 +26,21 @@ namespace MailForward.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Origin",
+                name: "Origins",
                 columns: table => new
                 {
                     IdOrigin = table.Column<Guid>(nullable: false),
                     Description = table.Column<string>(nullable: false),
                     Subject = table.Column<string>(nullable: false),
                     Body = table.Column<string>(nullable: true),
+                    Signature = table.Column<string>(nullable: true),
                     IdMailAccount = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Origin", x => x.IdOrigin);
+                    table.PrimaryKey("PK_Origins", x => x.IdOrigin);
                     table.ForeignKey(
-                        name: "FK_Origin_MailAccounts_IdMailAccount",
+                        name: "FK_Origins_MailAccounts_IdMailAccount",
                         column: x => x.IdMailAccount,
                         principalTable: "MailAccounts",
                         principalColumn: "IdMailAccount",
@@ -58,9 +59,9 @@ namespace MailForward.Data.Migrations
                 {
                     table.PrimaryKey("PK_AllowedSites", x => x.IdAllowedSite);
                     table.ForeignKey(
-                        name: "FK_AllowedSites_Origin_IdOrigin",
+                        name: "FK_AllowedSites_Origins_IdOrigin",
                         column: x => x.IdOrigin,
-                        principalTable: "Origin",
+                        principalTable: "Origins",
                         principalColumn: "IdOrigin",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -77,9 +78,9 @@ namespace MailForward.Data.Migrations
                 {
                     table.PrimaryKey("PK_Destinies", x => x.IdDestiny);
                     table.ForeignKey(
-                        name: "FK_Destinies_Origin_IdOrigin",
+                        name: "FK_Destinies_Origins_IdOrigin",
                         column: x => x.IdOrigin,
-                        principalTable: "Origin",
+                        principalTable: "Origins",
                         principalColumn: "IdOrigin",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -95,8 +96,8 @@ namespace MailForward.Data.Migrations
                 column: "IdOrigin");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Origin_IdMailAccount",
-                table: "Origin",
+                name: "IX_Origins_IdMailAccount",
+                table: "Origins",
                 column: "IdMailAccount");
         }
 
@@ -109,7 +110,7 @@ namespace MailForward.Data.Migrations
                 name: "Destinies");
 
             migrationBuilder.DropTable(
-                name: "Origin");
+                name: "Origins");
 
             migrationBuilder.DropTable(
                 name: "MailAccounts");

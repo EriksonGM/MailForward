@@ -1,0 +1,90 @@
+﻿@model OriginDTO
+@{
+    ViewData["Title"] = "Origin Detail";
+
+    ViewData["Icon"] = "fa fa-paper-plane";
+}
+
+<div>
+    <span class="h2"><i class="@ViewData["Icon"] mr-2 mb-4"></i>@ViewData["Title"]</span>
+</div>
+
+
+<dl class="h5" >
+    <dt class="mb-2">Description:</dt>
+    <dd>@Model.Description</dd>
+    <dt class="mb-2">Subject:</dt>
+    <dd>@Model.Subject:</dd>
+    <dt class="mb-2">Body</dt>
+    <dd>@Model.Body</dd>
+    <dt class="mb-2">Signature:</dt>
+    <dd>@Model.Signature</dd>
+    <dt class="mb-2">Mail Account</dt>
+    <dd>@Model.MailAccount.Description <span class="badge badge-info ml-2">@Model.MailAccount.Server -> @Model.MailAccount.Port</span></dd>
+</dl>
+<hr/>
+<div class="row">
+    <div class="col-md-6">
+        <h3><i class="fa fa-envelope-open mr-2"></i>Destinies</h3>
+        <form class="input-group mb-3" asp-action="">
+            <input type="email" class="form-control" placeholder="New Destiny" aria-label="Recipient's username" aria-describedby="button-addon2" required>
+            <div class="input-group-append">
+                <button class="btn btn-outline-success" type="submit"><i class="fa fa-plus-circle mr-2"></i>Add Destiny</button>
+            </div>
+        </form>
+        @if (Model.Destinies.Any())
+        {
+            <ul class="list-group">
+                @foreach (var d in Model.Destinies)
+                {
+                    <li class="list-group-item">@d</li>
+                }
+            </ul>
+        }
+        
+    </div>
+    <div class="col-md-6">
+        <h3><i class="fa fa-lock-open mr-2"></i>Allowed Sites</h3>
+    </div>
+</div>
+
+
+
+@*<div class="card">
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="text-right" style="width: 30%">Configuration</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Description:</td>
+                    <td>@Model.Description</td>
+                </tr>
+                <tr>
+                    <td>Subject:</td>
+                    <td>@Model.Subject</td>
+                </tr>
+                <tr>
+                    <td>Body:</td>
+                    <td>@Model.Body</td>
+                </tr>
+                <tr>
+                    <td>Signature:</td>
+                    <td>@Model.Signature</td>
+                </tr>
+                <tr>
+                    <td>Description:</td>
+                    <td>@Model.Description</td>
+                </tr>
+                <tr>
+                    <td>Description:</td>
+                    <td>@Model.Description</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>*@

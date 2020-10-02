@@ -6,6 +6,7 @@ using MailForward.Data;
 using MailForward.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -55,8 +56,17 @@ namespace MailForward.UI
                 });
             });
 
+            services.Configure<FormOptions>(o => {
+                o.ValueLengthLimit = int.MaxValue;
+                o.MultipartBodyLengthLimit = int.MaxValue;
+                o.MemoryBufferThreshold = int.MaxValue;
+            });
+
             services.AddTransient<IMailAccountService, MailAccountService>();
             services.AddTransient<IOriginService, OriginService>();
+            services.AddTransient<IDestinyService, DestinyService>();
+            services.AddTransient<IAllowedSiteService, AllowedSiteService>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -108,6 +108,9 @@ namespace MailForward.Data.Migrations
                     b.Property<Guid>("IdMailAccount")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Signature")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Subject")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -116,7 +119,7 @@ namespace MailForward.Data.Migrations
 
                     b.HasIndex("IdMailAccount");
 
-                    b.ToTable("Origin");
+                    b.ToTable("Origins");
                 });
 
             modelBuilder.Entity("MailForward.Data.Entities.AllowedSite", b =>

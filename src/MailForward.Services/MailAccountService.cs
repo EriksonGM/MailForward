@@ -5,6 +5,7 @@ using MailForward.Data;
 using MailForward.Data.Entities;
 using MailForward.Services.Exceptions;
 using MailForward.Services.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace MailForward.Services
@@ -16,6 +17,8 @@ namespace MailForward.Services
         public void Delete(Guid idMailAccount);
         public MailAccountDTO GetById(Guid idMailAccount);
         public List<MailAccountDTO> List();
+
+        public List<SelectListItem> SelectList();
     }
     public class MailAccountService : IMailAccountService
     {
@@ -112,6 +115,15 @@ namespace MailForward.Services
                 Mail = x.Mail,
                 Server = x.Server,
                 Port = x.Port
+            }).ToList();
+        }
+
+        public List<SelectListItem> SelectList()
+        {
+            return _db.MailAccounts.Select(x => new SelectListItem
+            {
+                Value = x.IdMailAccount.ToString(),
+                Text = x.Description
             }).ToList();
         }
     }

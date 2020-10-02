@@ -1,6 +1,10 @@
 ﻿namespace MailForward.Services
 {
-    public class AllowedSiteService
+    public interface IAllowedSiteService
+    {
+
+    }
+    public class AllowedSiteService : IAllowedSiteService
     {
         
     }

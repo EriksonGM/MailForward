@@ -21,7 +21,7 @@ namespace MailForward.Services
 
         public OriginDTO GetById(Guid idOrigin);
 
-
+        //public 
     }
 
     public class OriginService : IOriginService
@@ -51,7 +51,20 @@ namespace MailForward.Services
 
         public void Update(OriginDTO dto)
         {
-            throw new NotImplementedException();
+            var origin = _db.Origins.Find(dto.IdOrigin);
+
+            if(origin == null)
+                throw new InvalidOriginException();
+
+            origin.Description = dto.Description;
+            origin.Subject = dto.Subject;
+            origin.Body = dto.Body;
+            origin.Signature = dto.Signature;
+            origin.IdMailAccount = dto.IdMailAccount;
+
+            _db.Entry(origin).State = EntityState.Modified;
+
+            _db.SaveChanges();
         }
 
         public List<OriginDTO> List()
@@ -62,6 +75,7 @@ namespace MailForward.Services
                 Subject = x.Subject,
                 Body = x.Body,
                 Description = x.Description,
+                Signature = x.Signature,
                 IdMailAccount = x.IdMailAccount
             }).ToList();
         }
@@ -89,10 +103,13 @@ namespace MailForward.Services
                 Body = origin.Body,
                 Description = origin.Description,
                 IdMailAccount = origin.IdMailAccount,
-                MailAccount = new MailAccountDTO(origin.MailAccount)
+                MailAccount = new MailAccountDTO(origin.MailAccount),
+                Destinies = origin.Destinies.Select(x=> new DestinyDTO(x)).ToList()
             };
 
             return res;
         }
+
+
     }
 }
