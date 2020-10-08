@@ -9,82 +9,137 @@
     <span class="h2"><i class="@ViewData["Icon"] mr-2 mb-4"></i>@ViewData["Title"]</span>
 </div>
 
+<style>
 
-<dl class="h5" >
-    <dt class="mb-2">Description:</dt>
-    <dd>@Model.Description</dd>
-    <dt class="mb-2">Subject:</dt>
-    <dd>@Model.Subject:</dd>
-    <dt class="mb-2">Body</dt>
-    <dd>@Model.Body</dd>
-    <dt class="mb-2">Signature:</dt>
-    <dd>@Model.Signature</dd>
-    <dt class="mb-2">Mail Account</dt>
-    <dd>@Model.MailAccount.Description <span class="badge badge-info ml-2">@Model.MailAccount.Server -> @Model.MailAccount.Port</span></dd>
-</dl>
-<hr/>
+    td:first-child {
+        font-weight: bold;
+        text-align: right;
+        width: 30%;
+        padding-right: 10px;
+        height: 40px
+    }
+</style>
+
+<table>
+    <tbody>
+        <tr>
+            <td>Key:</td>
+            <td>@Model.IdOrigin</td>
+        </tr>
+        <tr>
+            <td>Description:</td>
+            <td>@Model.Description</td>
+        </tr>
+        <tr>
+            <td>Subject:</td>
+            <td>@Model.Subject</td>
+        </tr>
+        <tr>
+            <td>Body:</td>
+            <td>@Model.Body</td>
+        </tr>
+        <tr>
+            <td>Signature:</td>
+            <td>@Model.Signature</td>
+        </tr>
+        <tr>
+            <td>Mail Account</td>
+            <td>@Model.MailAccount.Description <span class="badge badge-info ml-2">@Model.MailAccount.Server -> @Model.MailAccount.Port</span></td>
+        </tr>
+
+    </tbody>
+</table>
+
+<hr />
 <div class="row">
     <div class="col-md-6">
-        <h3><i class="fa fa-envelope-open mr-2"></i>Destinies</h3>
-        <form class="input-group mb-3" asp-action="">
-            <input type="email" class="form-control" placeholder="New Destiny" aria-label="Recipient's username" aria-describedby="button-addon2" required>
+        <h3 class="mb-3"><i class="fa fa-envelope-open mr-2"></i>Destinies</h3>
+        <form class="input-group mb-3" asp-action="Add" asp-controller="Destiny">
+            <input asp-for="IdOrigin" type="hidden" />
+            <input type="email" class="form-control" placeholder="New Destiny" required name="Email">
             <div class="input-group-append">
                 <button class="btn btn-outline-success" type="submit"><i class="fa fa-plus-circle mr-2"></i>Add Destiny</button>
             </div>
         </form>
         @if (Model.Destinies.Any())
         {
-            <ul class="list-group">
-                @foreach (var d in Model.Destinies)
-                {
-                    <li class="list-group-item">@d</li>
-                }
-            </ul>
+            <form asp-controller="Destiny" asp-action="Remove" method="post">
+                <input asp-for="IdOrigin" type="hidden" />
+                <ul class="list-group">
+                    @foreach (var d in Model.Destinies)
+                    {
+                        <li class="list-group-item">
+                            <button class="btn btn-danger btn-sm mr-2" name="IdDestiny" value="@d.IdDestiny"><i class="fa fa-times"></i></button>@d.Email
+                        </li>
+                    }
+                </ul>
+            </form>
         }
-        
+
     </div>
-    <div class="col-md-6">
-        <h3><i class="fa fa-lock-open mr-2"></i>Allowed Sites</h3>
+    <div class="col-md-6" style="border-left: 1px solid rgba(0, 0, 0, .1); min-height: 40vh">
+        <h3 class="mb-3"><i class="fa fa-lock-open mr-2"></i>Allowed Sites</h3>
+        <form class="input-group mb-3" asp-action="Add" asp-controller="AllowedSite">
+            <input asp-for="IdOrigin" type="hidden" />
+            <input type="url" class="form-control" placeholder="New Allowed Site" required name="Site">
+            <div class="input-group-append">
+                <button class="btn btn-outline-success" type="submit"><i class="fa fa-plus-circle mr-2"></i>Add Destiny</button>
+            </div>
+        </form>
+        @if (Model.Destinies.Any())
+        {
+            <form asp-controller="AllowedSite" asp-action="Remove" method="post">
+                <input asp-for="IdOrigin" type="hidden" />
+                <ul class="list-group">
+                    @foreach (var o in Model.AllowedSites)
+                    {
+                        <li class="list-group-item">
+                            <button class="btn btn-danger btn-sm mr-2" name="IdAllowedSite" value="@o.IdAllowedSite"><i class="fa fa-times"></i></button>@o.Site
+                        </li>
+                    }
+                </ul>
+            </form>
+        }
     </div>
 </div>
 
 
 
 @*<div class="card">
-    <div class="card-body">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th class="text-right" style="width: 30%">Configuration</th>
-                    <th>Value</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Description:</td>
-                    <td>@Model.Description</td>
-                </tr>
-                <tr>
-                    <td>Subject:</td>
-                    <td>@Model.Subject</td>
-                </tr>
-                <tr>
-                    <td>Body:</td>
-                    <td>@Model.Body</td>
-                </tr>
-                <tr>
-                    <td>Signature:</td>
-                    <td>@Model.Signature</td>
-                </tr>
-                <tr>
-                    <td>Description:</td>
-                    <td>@Model.Description</td>
-                </tr>
-                <tr>
-                    <td>Description:</td>
-                    <td>@Model.Description</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>*@
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="text-right" style="width: 30%">Configuration</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Description:</td>
+                        <td>@Model.Description</td>
+                    </tr>
+                    <tr>
+                        <td>Subject:</td>
+                        <td>@Model.Subject</td>
+                    </tr>
+                    <tr>
+                        <td>Body:</td>
+                        <td>@Model.Body</td>
+                    </tr>
+                    <tr>
+                        <td>Signature:</td>
+                        <td>@Model.Signature</td>
+                    </tr>
+                    <tr>
+                        <td>Description:</td>
+                        <td>@Model.Description</td>
+                    </tr>
+                    <tr>
+                        <td>Description:</td>
+                        <td>@Model.Description</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>*@

@@ -25,7 +25,9 @@ namespace MailForward.UI.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var res = _origin.List();
+
+            return View(res);
         }
 
         public IActionResult Info(Guid id)
@@ -83,5 +85,21 @@ namespace MailForward.UI.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult Delete(Guid id)
+        {
+            var res = _origin.GetById(id);
+
+            return View(res);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ConfirmDelete(Guid id)
+        {
+            _origin.Delete(id);
+
+            return RedirectToAction("Index");
+        }
     }
 }

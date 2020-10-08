@@ -25,6 +25,7 @@ namespace MailForward.Services.Models
 
         [MaxLength(50)]
         [EmailAddress]
+        [Required]
         public string Email { get; set; }
     }
 }

@@ -1,0 +1,16 @@
+﻿@model OriginDTO
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<form asp-action="ConfirmDelete" asp-controller="Origins" method="post">
+    @Html.AntiForgeryToken()
+    <input name="id" value="@Model.IdOrigin" type="hidden"/>
+    <h2 class="text-center" style="margin-top: 20vh">You are about to delete <strong>@Model.Description</strong> origin.</h2>
+    <p class="text-center h3 mt-3 text-danger">This action can't be undone.</p>
+    <p class="text-center mt-5">
+        <a class="btn btn-primary" asp-action="Index" asp-controller="Origins"><i class="fa fa-times mr-2"></i>Cancel</a>
+        <button class="btn btn-danger"><i class="fa fa-trash-alt mr-2"></i>Yes, I know</button>
+    </p>
+</form>
+

@@ -5,6 +5,7 @@ using MailKit.Net.Smtp;
 using System.Threading.Tasks;
 using MailForward.Services;
 using MailForward.UI.Models;
+using MailKit.Security;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -19,13 +20,16 @@ namespace MailForward.UI.Areas.v1.Controllers
         private readonly IMailAccountService _mailAccount;
         private readonly ILogger<SendMailController> _logger;
         private readonly IOriginService _origin;
+        private readonly IAllowedSiteService _allowedSite;
         public SendMailController(
             ILogger<SendMailController> logger
             , IMailAccountService mailAccount
+            , IAllowedSiteService allowedSite
             , IOriginService origin)
         {
             _logger = logger;
             _mailAccount = mailAccount;
+            _allowedSite = allowedSite;
             _origin = origin;
         }
 
@@ -73,11 +77,18 @@ namespace MailForward.UI.Areas.v1.Controllers
                 {
                     try
                     {
-                        client.Connect(origin.MailAccount.Server, origin.MailAccount.Port, origin.MailAccount.UseSSL);
+                        if (origin.MailAccount.UseSSL)
+                        {
+                            client.Connect(origin.MailAccount.Server, origin.MailAccount.Port, origin.MailAccount.UseSSL);
+                            client.Authenticate(origin.MailAccount.User, origin.MailAccount.Password);
+                        }
+                            
+                        else
+                            client.Connect(origin.MailAccount.Server, origin.MailAccount.Port, SecureSocketOptions.None);
+
+
                         client.AuthenticationMechanisms.Remove("XOAUTH2");
-                        
-                        client.Authenticate(origin.MailAccount.User, origin.MailAccount.Password);
-                        
+
                         client.Send(mail);
                     }
                     catch
@@ -105,7 +116,7 @@ namespace MailForward.UI.Areas.v1.Controllers
                 throw;
             }
 
-            
+
         }
     }
 }

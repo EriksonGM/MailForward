@@ -76,13 +76,21 @@ namespace MailForward.Services
                 Body = x.Body,
                 Description = x.Description,
                 Signature = x.Signature,
-                IdMailAccount = x.IdMailAccount
+                IdMailAccount = x.IdMailAccount,
+                MailAccount = new MailAccountDTO(x.MailAccount)
             }).ToList();
         }
 
         public void Delete(Guid idOrigin)
         {
-            throw new NotImplementedException();
+            var origin = _db.Origins.Find(idOrigin);
+
+            if (origin == null)
+                throw new InvalidOriginException();
+
+            _db.Entry(origin).State = EntityState.Deleted;
+
+            _db.SaveChanges();
         }
 
         public OriginDTO GetById(Guid idOrigin)
@@ -104,7 +112,8 @@ namespace MailForward.Services
                 Description = origin.Description,
                 IdMailAccount = origin.IdMailAccount,
                 MailAccount = new MailAccountDTO(origin.MailAccount),
-                Destinies = origin.Destinies.Select(x=> new DestinyDTO(x)).ToList()
+                Destinies = origin.Destinies.Select(x=> new DestinyDTO(x)).ToList(),
+                AllowedSites = origin.AllowedSites.Select(x=> new AllowedSiteDTO(x)).ToList()
             };
 
             return res;

@@ -28,5 +28,7 @@ namespace MailForward.Services.Models
         public List<DestinyDTO> Destinies { get; set; }
 
         public List<SelectListItem> MailAccounts { get; set; }
+
+        public List<AllowedSiteDTO> AllowedSites { get; set; }
     }
 }

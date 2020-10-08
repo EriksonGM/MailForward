@@ -1,4 +1,4 @@
-﻿
+﻿@model List<OriginDTO>
 @{
     ViewData["Title"] = "Index";
     ViewData["Icon"] = "fa fa-paper-plane";
@@ -8,3 +8,42 @@
     <span class="h2"><i class="@ViewData["Icon"] mr-2 mb-4"></i>@ViewData["Title"]</span>
     <a class="btn btn-primary float-right" asp-action="Edit">New Origin</a>
 </div>
+
+<style>
+    td {
+        text-align: center;
+    }
+</style>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th class="text-center" style="width: 10px;">#</th>
+            <th class="text-center">Description</th>
+            <th class="text-center">Key</th>
+            <th class="text-center">Server</th>
+        </tr>
+        @foreach (var o in Model)
+        {
+            <tr >
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-info-circle"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" asp-controller="Origins" asp-action="Info" asp-route-id="@o.IdOrigin"><i class="fa fa-info-circle mr-2"></i>Details</a>
+                            <a class="dropdown-item" asp-controller="Origins" asp-action="Edit" asp-route-id="@o.IdOrigin"><i class="fa fa-edit mr-2"></i>Edit</a>
+                            <a class="dropdown-item text-danger" asp-controller="Origins" asp-action="Delete" asp-route-id="@o.IdOrigin"><i class="fa fa-trash-alt mr-2"></i>Delete</a>
+                        </div>
+                    </div>
+                </td>
+                <td class="align-middle">@o.Description</td>
+                <td class="align-middle">@o.IdOrigin</td>
+                <td class="align-middle">
+                    <span class="badge badge-info ml-2">@o.MailAccount.Server -> @o.MailAccount.Port</span>
+                </td>
+            </tr>
+        }
+    </thead>
+</table>
