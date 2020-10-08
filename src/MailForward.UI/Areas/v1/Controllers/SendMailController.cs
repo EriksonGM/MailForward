@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using MailKit.Net.Smtp;
 using System.Threading.Tasks;
 using MailForward.Services;
@@ -85,8 +86,7 @@ namespace MailForward.UI.Areas.v1.Controllers
                             
                         else
                             client.Connect(origin.MailAccount.Server, origin.MailAccount.Port, SecureSocketOptions.None);
-
-
+                        
                         client.AuthenticationMechanisms.Remove("XOAUTH2");
 
                         client.Send(mail);

@@ -39,6 +39,7 @@ namespace MailForward.Services
                 Subject = dto.Subject,
                 Body = dto.Body,
                 Description = dto.Description,
+                Signature = dto.Signature,
                 IdMailAccount = dto.IdMailAccount
             };
 

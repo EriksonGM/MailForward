@@ -34,11 +34,11 @@ namespace MailForward.Services.Models
         public string Server { get; set; }
 
         [MaxLength(50)]
-        [Required]
+        //[Required]
         public string User { get; set; }
 
         [MaxLength(50)]
-        [Required]
+        //[Required]
         public string Password { get; set; }
 
         [Required]
